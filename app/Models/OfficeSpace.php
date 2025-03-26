@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class OfficeSpace extends Model
 {
@@ -30,6 +31,12 @@ class OfficeSpace extends Model
         'price' => 'integer',
         'duration' => 'integer',
     ];
+
+    public function setNameAttribute($value): void
+    {
+        $this->attributes['name'] = ($value);
+        $this->attributes['slug'] = Str::slug($value);
+    }
 
     public function city(): BelongsTo
     {
